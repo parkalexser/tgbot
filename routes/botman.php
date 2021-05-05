@@ -6,7 +6,8 @@ $botman = resolve('botman');
 $botman->hears('/random', 'App\Http\Controllers\AllBreedsController@random');
 
 $botman->hears('Hi', function ($bot) {
-    $bot->reply('Hello WORLD!');
+	$user = $bot->getUser();
+    $bot->reply($user);
 });
 
 $botman->hears('Start conversation', BotManController::class.'@startConversation');
