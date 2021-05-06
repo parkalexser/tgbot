@@ -2,6 +2,7 @@
 
 namespace App\Conversations;
 
+use BotMan\BotMan\Facades\BotMan;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
@@ -21,11 +22,13 @@ class MyConversation extends Conversation
                 Button::create('No')->value(0),
             ]);
 
-        $this->ask($question, function ($answer, $bot){
+        $this->ask($question, function ($answer){
 //            $this->say($answer->getValue());
             if($answer->getValue() == 1){
-                $user = $bot->getUser();
-                $bot->reply(print_r($user->getInfo(), true));
+                $user = $this->bot->getUser();
+                $this->say(print_r($user->getInfo(), true));
+            }else{
+                $this->say('you pressed - '.$answer->getValue());
             }
 
         });
